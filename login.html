@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ne">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>लगइन - सम्पत्ति विवरण अनुगमन</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+    <style>
+        :root {
+            --main-color: #1b438b;
+            --bg-color: #f7fcff;
+            --white-color: #ffffff;
+        }
+        html {
+            font-size: clamp(45%, 1.5vw + 40%, 62.5%);
+        }
+        body {
+            font-family: 'kalimati', 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .login-box {
+            background: var(--white-color);
+            padding: 3rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 320px;
+        }
+        .login-box h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 0.5rem;
+            box-sizing: border-box;
+            font-size: 1.4rem;
+        }
+        .btn-login {
+            width: 100%;
+            padding: 0.5rem;
+            background-color: var(--main-color);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1.4rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .btn-login:hover {
+            background-color: #004ecc;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 1.5rem;
+            text-decoration: none;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-box">
+        <div style="text-align:center; margin-bottom: 20px;">
+            <img src="./images/coa.png" alt="Nepal Coat of Arms" width="60">
+        </div>
+        <h2 id="login-title">लगइन गर्नुहोस्</h2>
+        <form id="loginForm" action="dashboard.html">
+            <div class="form-group">
+                <label for="username">प्रयोगकर्ताको नाम (Username)</label>
+                <input type="text" id="username" required>
+            </div>
+            <div class="form-group" id="province-group" style="display: none;">
+                <label for="province">प्रदेश छनौट गर्नुहोस्</label>
+                <select id="province">
+                    <option value="">प्रदेश छनौट गर्नुहोस्</option>
+                    <option value="1">कोशी प्रदेश</option>
+                    <option value="2">मधेस प्रदेश</option>
+                    <option value="3">बागमती प्रदेश</option>
+                    <option value="4">गण्डकी प्रदेश</option>
+                    <option value="5">लुम्बिनी प्रदेश</option>
+                    <option value="6">कर्णाली प्रदेश</option>
+                    <option value="7">सुदूर पश्चिम प्रदेश</option>
+                </select>
+            </div>
+            <div class="form-group" id="district-group" style="display: none;">
+                <label for="district">जिल्ला छनौट गर्नुहोस्</label>
+                <select id="district">
+                    <option value="">जिल्ला छनौट गर्नुहोस्</option>
+                </select>
+            </div>
+            <div class="form-group" id="local-level-group" style="display: none;">
+                <label for="local-level">स्थानीय तह छनौट गर्नुहोस्</label>
+                <select id="local-level">
+                    <option value="">स्थानीय तह छनौट गर्नुहोस्</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="password">पासवर्ड (Password)</label>
+                <input type="password" id="password" required>
+            </div>
+            <button type="submit" class="btn-login">लगइन गर्नुहोस्</button>
+        </form>
+        <a href="selection.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> पछाडि जानुहोस्</a>
+    </div>
+     <script src="./script.js"></script>
+    <script>
+        // URL को 'role' प्यारामिटर अनुसार शीर्षक (Heading) परिवर्तन गर्ने
+        const urlParams = new URLSearchParams(window.location.search);
+        const role = urlParams.get('role');
+        const roleMap = {
+            'superadmin': 'सुपरएडमिन',
+            'admin': 'एडमिन',
+            'federal': 'सङ्घीय तह',
+            'provincial': 'प्रदेश तह',
+            'local': 'स्थानीय तह',
+            'office': 'प्रयोगकर्ता कार्यालय'
+        };
+        if (role && roleMap[role]) {
+            document.getElementById('login-title').textContent = roleMap[role] + ' लगइन';
+        }
+
+        // प्रदेश तहको लगइनमा प्रदेश छनौट गर्ने फिल्ड देखाउने
+        if (role === 'provincial') {
+            document.getElementById('province-group').style.display = 'block';
+            document.getElementById('province').setAttribute('required', 'required');
+        }
+
+        // स्थानीय तहको लगइनमा प्रदेश, जिल्ला र स्थानीय तह छनौट गर्ने फिल्ड देखाउने
+        if (role === 'local') {
+            document.getElementById('province-group').style.display = 'block';
+            document.getElementById('province').setAttribute('required', 'required');
+            document.getElementById('district-group').style.display = 'block';
+            document.getElementById('district').setAttribute('required', 'required');
+            document.getElementById('local-level-group').style.display = 'block';
+            document.getElementById('local-level').setAttribute('required', 'required');
+        }
+
+        // Cascading Dropdown Logic
+        const provinceSelect = document.getElementById('province');
+        const districtSelect = document.getElementById('district');
+        const localLevelSelect = document.getElementById('local-level');
+
+        provinceSelect.addEventListener('change', function() {
+            if (window.populateDropdown && window.nepalData) {
+                window.populateDropdown(districtSelect, window.nepalData.DISTRICTS[this.value] || [], "जिल्ला छनौट गर्नुहोस्");
+                localLevelSelect.innerHTML = '<option value="">स्थानीय तह छनौट गर्नुहोस्</option>';
+            }
+        });
+
+        districtSelect.addEventListener('change', function() {
+            if (window.populateDropdown && window.nepalData) {
+                const pId = provinceSelect.value;
+                const list = (window.nepalData.MUNICIPALITIES[pId] && window.nepalData.MUNICIPALITIES[pId][this.value]) || [];
+                window.populateDropdown(localLevelSelect, list, "स्थानीय तह छनौट गर्नुहोस्");
+            }
+        });
+
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const province = document.getElementById('province').value;
+            const district = document.getElementById('district').value;
+            const localLevel = document.getElementById('local-level').value;
+            
+            // Store user info in sessionStorage for dashboard use
+            sessionStorage.setItem('username', username);
+            sessionStorage.setItem('userRole', role || 'superadmin');
+
+            // प्रदेश वा स्थानीय तहको लागि प्रदेश ID सेभ गर्ने
+            if ((role === 'provincial' || role === 'local') && province) {
+                sessionStorage.setItem('user_province', province);
+            }
+            
+            // स्थानीय तहको लागि थप विवरण सेभ गर्ने
+            if (role === 'local') {
+                if (district) sessionStorage.setItem('user_district', district);
+                if (localLevel) sessionStorage.setItem('user_local_level', localLevel);
+            }
+            
+            // Role-based routing
+            if (role === 'superadmin') {
+                window.location.href = 'dashboard.html?role=superadmin';
+            } else if (role === 'admin') {
+                window.location.href = 'dashboard.html?role=admin';
+            } else if (role === 'federal') {
+                window.location.href = 'dashboard.html?role=federal';
+            } else if (role === 'provincial') {
+                window.location.href = 'dashboard.html?role=provincial';
+            } else if (role === 'local') {
+                window.location.href = 'dashboard.html?role=local';
+            } else if (role === 'office') {
+                window.location.href = 'dashboard.html?role=office';
+            } else {
+                // Default fallback
+                window.location.href = 'dashboard.html?role=superadmin';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ne">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>सुपर एडमिन ड्यासबोर्ड</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* चार्ट कन्टेनरको साइज र मार्जिन व्यवस्थापन */
+        .chart-container {
+            width: 100% !important;
+            margin: 0 !important;
+            padding: 1.5rem !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-brand" id="sidebar-brand-text">
+                <i class="fa-solid fa-shield-halved"></i> लोड हुँदैछ...
+            </div>
+            <nav class="sidebar-menu">
+                <ul id="sidebar-nav-list">
+                    <!-- Dynamic Menu Items injected by script.js -->
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="index.html" class="logout-link">
+                    <i class="fa-solid fa-right-from-bracket"></i> लगआउट
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <header class="top-bar">
+                <div style="flex: 1; display: flex; align-items: center;">
+                    <nav class="breadcrumb">
+                        <a href="javascript:history.back()" class="breadcrumb-back"><i class="fa-solid fa-arrow-left"></i> पछाडि</a>
+                        <span class="separator">|</span>
+                        <a href="index.html">गृहपृष्ठ</a>
+                        <i class="fa-solid fa-chevron-right separator"></i>
+                        <span id="breadcrumb-active-item"></span>
+                    </nav>
+                </div>
+                <div style="display: flex; align-items: center; gap: 2rem;">
+                    <div id="user-top-info" style="display: flex; align-items: center; gap: 1rem; cursor: pointer; padding: 0.5rem 1rem; border-radius: 0.8rem; transition: background-color 0.3s ease;" title="क्लिक गर्नुहोस् - लगआउट">
+                        <div id="user-avatar" style="width: 3.5rem; height: 3.5rem; background: var(--main-color); color: white; border-radius: 50%; display: grid; place-items: center; font-weight: bold;">P</div>
+                        <div style="font-size: 1.2rem; font-weight: 600;">
+                            <div id="user-name">policy mon</div>
+                            <div id="user-role" style="font-weight: 400; color: #6c757d;">सुपर एडमिन</div>
+                        </div>
+                        <i class="fa-solid fa-sign-out-alt" style="font-size: 1.2rem; color: #6c757d; margin-left: 0.5rem;"></i>
+                    </div>
+                </div>
+            </header>
+
+            <h2 class="section-common-heading">सम्पत्ति विवरण सारांश</h2>
+
+            <!-- Filters from nepalData -->
+            <section class="filter-section">
+                <div class="filter-grid">
+                    <div>
+                        <label for="ministry-filter">मन्त्रालय/निकाय</label>
+                        <select id="ministry-filter">
+                            <option value="">सबै मन्त्रालय/निकाय</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="province-filter">प्रदेश</label>
+                        <select id="province-filter">
+                            <option value="">सबै प्रदेश</option>
+                            <option value="1">कोशी प्रदेश</option>
+                            <option value="2">मधेस प्रदेश</option>
+                            <option value="3">बागमती प्रदेश</option>
+                            <option value="4">गण्डकी प्रदेश</option>
+                            <option value="5">लुम्बिनी प्रदेश</option>
+                            <option value="6">कर्णाली प्रदेश</option>
+                            <option value="7">सुदूर पश्चिम प्रदेश</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="district-filter">जिल्ला</label>
+                        <select id="district-filter">
+                            <option value="">सबै जिल्ला</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="local-filter">स्थानीय तह</label>
+                        <select id="local-filter">
+                            <option value="">सबै स्थानीय तह</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="filter-actions">
+                    <button type="button" id="search-filters" class="btn-search">
+                        <i class="fa-solid fa-magnifying-glass"></i> खोज्नुहोस्
+                    </button>
+                    <button type="button" id="reset-filters" class="btn-reset">
+                        <i class="fa-solid fa-rotate-left"></i> फिल्टर रिसेट
+                    </button>
+                </div>
+            </section>
+
+            <!-- Stats Widgets -->
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <i class="fa-solid fa-sitemap"></i>
+                    <div class="stat-info"><h3>कुल निकाय</h3><p id="total-orgs">0</p></div>
+                </div>
+                <div class="stat-card">
+                    <i class="fa-solid fa-user-tie"></i>
+                    <div class="stat-info"><h3>कुल राष्ट्रसेवक</h3><p id="total-servants">0</p></div>
+                </div>
+                <div class="stat-card">
+                    <i class="fa-solid fa-circle-check"></i>
+                    <div class="stat-info"><h3>समयमा बुझाउने</h3><p id="on-time">0</p></div>
+                </div>
+                <div class="stat-card">
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                    <div class="stat-info"><h3>बुझाउन बाँकी</h3><p id="delayed">0</p></div>
+                </div>
+            </div>
+
+            <!-- Timeline Specific Stats -->
+            <h3 style="font-size: 1.6rem; margin: 2.5rem 0 1.5rem; color: var(--main-color); border-left: 4px solid var(--main-color); padding-left: 1rem;">समयसीमा आधारित रिपोर्ट सारांश</h3>
+            <div class="stat-grid" style="grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));">
+                <div class="stat-card">
+                    <i class="fa-solid fa-calendar-plus"></i>
+                    <div class="stat-info"><h3>शुरु नियुक्ति (६० दिन)</h3><p id="initial-60">0</p></div>
+                </div>
+                <div class="stat-card">
+                    <i class="fa-solid fa-calendar-check"></i>
+                    <div class="stat-info"><h3>आ.व. समाप्त (६० दिन)</h3><p id="annual-60">0</p></div>
+                </div>
+                <div class="stat-card">
+                    <i class="fa-solid fa-calendar-day"></i>
+                    <div class="stat-info"><h3>विशेष परिस्थिति (३० दिन)</h3><p id="special-30">0</p></div>
+                </div>
+            </div>
+
+            <!-- Charts Section Updated with Wrapper and Third Chart -->
+            <div class="charts-wrapper">
+                <div class="chart-container">
+                    <h3 style="font-size: 1.6rem; margin-bottom: 1.5rem; text-align: center; color: var(--main-color);">विवरण सारांश</h3>
+                    <canvas id="submissionChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <h3 style="font-size: 1.6rem; margin-bottom: 1.5rem; text-align: center; color: var(--main-color);">तहगत स्थिति</h3>
+                    <canvas id="ministryChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <h3 style="font-size: 1.6rem; margin-bottom: 1.5rem; text-align: center; color: var(--main-color);">राष्ट्रसेवकको किसिम</h3>
+                    <canvas id="employeeTypeChart"></canvas>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

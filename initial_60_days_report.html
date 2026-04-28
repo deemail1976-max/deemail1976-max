@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ne">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>नयाँ नियुक्तिको ६० दिनभित्र - सुपर एडमिन</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="sidebar-brand" id="sidebar-brand-text">
+                <i class="fa-solid fa-shield-halved"></i> लोड हुँदैछ...
+            </div>
+            <nav class="sidebar-menu">
+                <ul id="sidebar-nav-list">
+                    <!-- Dynamic Menu Items injected by script.js -->
+                </ul>
+            </nav>
+            <div class="sidebar-footer"><a href="index.html" class="logout-link"><i class="fa-solid fa-right-from-bracket"></i> लगआउट</a></div>
+        </aside>
+        <main class="main-content">
+            <nav class="breadcrumb">
+                <a href="dashboard.html">ड्यासबोर्ड</a>
+                <i class="fa-solid fa-chevron-right separator"></i>
+                <span id="breadcrumb-active-item">शुरु नियुक्तिको ६० दिनभित्र</span>
+            </nav>
+            <h3 style="font-size: 1.6rem; margin-bottom: 2rem; color: var(--heading-color);">शुरु नियुक्तिको ६० दिनभित्र पेश गर्नुपर्ने सम्पत्ति विवरण दर्ता गरेपछिको प्रविष्टिको विवरण</h3>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <p style="font-size: 1.4rem; font-weight: 600;">फिल्टरहरु:</p>
+                <button class="btn-export" id="export-excel"><i class="fa-solid fa-file-excel"></i> Excel मा निर्यात गर्नुहोस्</button>
+            </div>
+            <div class="png-filter-container" id="png-report-filters">
+                <div class="png-filter-item"><label>नाम</label><input type="text" data-col="1" placeholder=" "></div>
+                <div class="png-filter-item"><label>मन्त्रालय/निकाय</label><select id="ministry-filter" data-col="4"><option value="">सबै मन्त्रालय/निकाय</option></select></div>
+                <div class="png-filter-item"><label>पद</label><input type="text" data-col="2" placeholder=" "></div>
+                <div class="png-filter-item"><label>सम्बन्धित आ.व.</label><select id="fy-filter" data-col="7"><option value="">सबै आ.व.</option><option value="२०८०/८१">२०८०/८१</option><option value="२०८१/८२">२०८१/८२</option></select></div>
+                <div class="png-filter-item"><label>सम्पत्ति विवरण दर्ता नं.</label><input type="text" data-col="8" placeholder=" "></div>
+                <div class="png-filter-item"><label>मोबाइल नं.</label><input type="text" data-col="10" placeholder=" "></div>
+                <div class="png-filter-item"><label>सेवा/नोकरीको किसिम</label><select data-col="6"><option value="">सबै</option><option>निजामती</option><option>शिक्षक</option><option>सेना</option><option>प्रहरी</option><option>नियुक्ति</option><option>मनोनयन</option></select></div>
+                <div class="png-filter-item"><label>कार्यरत सार्वजनिक संस्थाको नाम</label><input type="text" data-col="3" placeholder=" "></div>
+                <div class="png-filter-item"><label>पदाधिकारी/कर्मचारीको किसिम</label><select data-col="5"><option value="">सबै</option><option>स्थायी</option><option>अस्थायी</option><option>करार</option><option>नियुक्ति</option><option>मनोनयन</option></select></div>
+            </div>
+            <div class="filter-actions">
+                <button type="button" id="search-filters" class="btn-search">
+                    <i class="fa-solid fa-magnifying-glass"></i> खोज्नुहोस्
+                </button>
+                <button type="button" id="reset-filters" class="btn-reset">
+                    <i class="fa-solid fa-rotate-left"></i> फिल्टर रिसेट
+                </button>
+            </div>
+            <div class="report-table-container">
+                <table class="report-table">
+                    <thead>
+                        <tr>
+                            <th>सि.नं.</th>
+                            <th>नाम</th>
+                            <th>पद</th>
+                            <th>कार्यरत सार्वजनिक संस्थाको नाम</th>
+                            <th>मन्त्रालय/निकाय</th>
+                            <th>राष्ट्रसेवकको किसिम</th>
+                            <th>सेवा/नोकरीको किसिम</th>
+                            <th>सम्बन्धित आ.व.</th>
+                            <th>सम्पत्ति विवरण दर्ता नं.</th>
+                            <th>सम्पत्ति विवरण दर्ता मिति</th>
+                            <th>मोबाइल नं.</th>
+                            <th>तथ्याङ्क प्रविष्टि गर्नेको नाम, पद र मोबाइल नं.</th>
+                            <th>कैफियत</th>
+                        </tr>
+                    </thead>
+                    <tbody id="initial-60-body">
+                        <tr>
+                            <td>१</td>
+                            <td>राम बहादुर क्षेत्री</td>
+                            <td>शाखा अधिकृत</td>
+                            <td>स्वास्थ्य सेवा विभाग</td>
+                            <td>स्वास्थ्य तथा जनसङ्ख्या मन्त्रालय</td>
+                            <td>स्थायी</td>
+                            <td>निजामती</td>
+                            <td>२०८०/८१</td>
+                            <td>२०८१-४५६</td>
+                            <td>२०८१/०५/१२</td>
+                            <td>९८४१२३४५६७</td>
+                            <td>हरि प्रसाद (कम्प्युटर अपरेटर, ९८५१००००००)</td>
+                            <td>-</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

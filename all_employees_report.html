@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ne">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>प्रविष्ट भएका सबै राष्ट्रसेवकहरूको विवरण - सम्पत्ति विवरण अनुगमन</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-brand" id="sidebar-brand-text">
+                <i class="fa-solid fa-shield-halved"></i> लोड हुँदैछ...
+            </div>
+            <nav class="sidebar-menu">
+                <ul id="sidebar-nav-list">
+                    <!-- Dynamic Menu Items injected by script.js -->
+                </ul>
+            </nav>
+            <div class="sidebar-footer"><a href="index.html" class="logout-link"><i class="fa-solid fa-right-from-bracket"></i> बाहिरिनुहोस्</a></div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <header class="top-bar">
+                <div style="flex: 1; display: flex; align-items: center;">
+                    <nav class="breadcrumb">
+                        <a href="dashboard.html">ड्यासबोर्ड</a>
+                        <i class="fa-solid fa-chevron-right separator"></i>
+                        <span id="breadcrumb-active-item">पेजमा प्रविष्ट भएका सबै विवरण</span>
+                    </nav>
+                </div>
+                <div style="display: flex; align-items: center; gap: 2rem;">
+                    <div id="user-top-info" style="display: flex; align-items: center; gap: 1rem; cursor: pointer; padding: 0.5rem 1rem; border-radius: 0.8rem; transition: background-color 0.3s ease;" title="क्लिक गर्नुहोस् - लगआउट">
+                        <div id="user-avatar" style="width: 3.5rem; height: 3.5rem; background: var(--main-color); color: white; border-radius: 50%; display: grid; place-items: center; font-weight: bold;">P</div>
+                        <div style="font-size: 1.2rem; font-weight: 600;">
+                            <div id="user-name">policy mon</div>
+                            <div id="user-role" style="font-weight: 400; color: #6c757d;">सुपर एडमिन</div>
+                        </div>
+                        <i class="fa-solid fa-sign-out-alt" style="font-size: 1.2rem; color: #6c757d; margin-left: 0.5rem;"></i>
+                    </div>
+                </div>
+            </header>
+
+            <h3 class="section-common-heading">प्रविष्ट भएका सबै राष्ट्रसेवकहरूको विवरण:</h3>
+            
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <p style="font-size: 1.4rem; font-weight: 600;">फिल्टरहरु:</p>
+                <button class="btn-export" id="export-excel"><i class="fa-solid fa-file-excel"></i> Excel मा निर्यात गर्नुहोस्</button>
+            </div>
+
+            <!-- Filters Grid following the layout of all_entry_list.png -->
+            <div class="png-filter-container">
+                <div class="png-filter-item"><label>नाम</label><input type="text" data-col="1" placeholder=" "></div>
+                <div class="png-filter-item"><label>मन्त्रालय/निकाय</label><select id="ministry-filter"><option value="">सबै मन्त्रालय/निकाय</option></select></div>
+                <div class="png-filter-item"><label>पद</label><input type="text" data-col="2" placeholder=" "></div>
+                <div class="png-filter-item"><label>सम्बन्धित आ.व.</label><select id="fy-filter" data-col="7"><option value="">सबै आ.व.</option><option value="२०८०/८१">२०८०/८१</option><option value="२०८१/८२">२०८१/८२</option><option value="२०८२/८३">२०८२/८३</option></select></div>
+                <div class="png-filter-item"><label>सम्पत्ति विवरण दर्ता नं.</label><input type="text" data-col="11" placeholder=" "></div>
+                <div class="png-filter-item"><label>मोबाइल नं.</label><input type="text" placeholder=" "></div>
+                <div class="png-filter-item"><label>सेवा/नोकरीको किसिम</label><select data-col="6"><option value="">सबै</option><option>निजामती</option><option>शिक्षक</option><option>सेना</option><option>प्रहरी</option><option>नियुक्ति</option><option>मनोनयन</option></select></div>
+                <div class="png-filter-item"><label>कार्यरत सार्वजनिक संस्थाको नाम</label><input type="text" data-col="3" placeholder=" "></div>
+                <div class="png-filter-item"><label>पदाधिकारी/कर्मचारीको किसिम</label><select data-col="5"><option value="">सबै</option><option>स्थायी</option><option>अस्थायी</option><option>करार</option><option>नियुक्ति</option><option>मनोनयन</option></select></div>
+            </div>
+            <div class="filter-actions">
+                <button type="button" id="search-filters" class="btn-search">
+                    <i class="fa-solid fa-magnifying-glass"></i> खोज्नुहोस्
+                </button>
+                <button type="button" id="reset-filters" class="btn-reset">
+                    <i class="fa-solid fa-rotate-left"></i> फिल्टर रिसेट
+                </button>
+            </div>
+            <div class="report-table-container">
+                <table class="report-table">
+                    <thead>
+                        <tr>
+                            <th>सि. नं.</th>
+                            <th>नाम</th>
+                            <th>पद</th>
+                            <th>कार्यरत सार्वजनिक संस्थाको नाम</th>
+                            <th>मन्त्रालय/निकाय</th>
+                            <th>राष्ट्रसेवकको किसिम</th>
+                            <th>सेवा/नोकरीको किसिम</th>
+                            <th>सम्बन्धित आ.व.</th>
+                            <th>सम्पत्ति विवरण पेश गरेको मिति</th>
+                            <th>सम्पत्ति विवरण समयमा पेश गरे/नगरेको</th>
+                            <th>जरीवाना तिरी सम्पत्ति विवरण पेश गरेको मिति</th>
+                            <th>जरीवाना तिरी पेश गरेको सम्पत्ति विवरण दर्ता नं.</th>
+                            <th>जरीवाना तिरेको बैंकको नाम र शाखा</th>
+                            <th>जरीवानाको भौचर अ.दु.अ. आयोगमा पठाएको पत्रको च नं</th>
+                            <th>जरीवानाको भौचर अ.दु.अ. आयोगमा पठाएको पत्रको मिति</th>
+                            <th>तथ्याङ्क प्रविष्टि गर्नेको नाम, पद र मोबाइल नं.</th>
+                            <th>कैफियत</th>
+                        </tr>
+                    </thead>
+                    <tbody id="all-employees-report-body">
+                        <tr>
+                            <td data-label="सि. नं.">१</td>
+                            <td data-label="नाम">राम प्रसाद दाहाल</td>
+                            <td data-label="पद">उप-सचिव</td>
+                            <td data-label="कार्यरत सार्वजनिक संस्थाको नाम">गृह मन्त्रालय</td>
+                            <td data-label="मन्त्रालय/निकाय">गृह मन्त्रालय</td>
+                            <td data-label="राष्ट्रसेवकको किसिम">स्थायी</td>
+                            <td data-label="सेवा/नोकरीको किसिम">निजामती</td>
+                            <td data-label="सम्बन्धित आ.व.">२०८०/८१</td>
+                            <td data-label="सम्पत्ति विवरण पेश गरेको मिति">२०८१/०५/१५</td>
+                            <td data-label="सम्पत्ति विवरण समयमा पेश गरे/नगरेको">हो</td>
+                            <td data-label="जरीवाना तिरी सम्पत्ति विवरण पेश गरेको मिति">-</td>
+                            <td data-label="जरीवाना तिरी पेश गरेको सम्पत्ति विवरण दर्ता नं.">-</td>
+                            <td data-label="जरीवाना तिरेको बैंकको नाम र शाखा">-</td>
+                            <td data-label="जरीवानाको भौचर अ.दु.अ. आयोगमा पठाएको पत्रको च नं">-</td>
+                            <td data-label="जरीवानाको भौचर अ.दु.अ. आयोगमा पठाएको पत्रको मिति">-</td>
+                            <td data-label="तथ्याङ्क प्रविष्टि गर्नेको नाम, पद र मोबाइल नं.">रमेश कुमार (शाखा अधिकृत, ९८४१२२२३३३)</td>
+                            <td data-label="कैफियत">-</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

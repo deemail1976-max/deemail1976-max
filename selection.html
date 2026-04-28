@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ne">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>प्रयोगकर्ता तह छनौट - सम्पत्ति विवरण अनुगमन</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+    <style>
+        :root {
+            --main-color: #1b438b;
+            --bg-color: #f7fcff;
+            --heading-color: #000a19;
+            --white-color: #ffffff;
+        }
+        html {
+            font-size: clamp(45%, 1.5vw + 40%, 62.5%);
+        }
+        body {
+            font-family: 'kalimati', 'Poppins', 'Urbanist', sans-serif;
+            background-color: var(--bg-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .selection-container {
+            background: var(--white-color);
+            padding: 4rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+        }
+        h2 {
+            color: var(--heading-color);
+            margin-bottom: 2.4rem;
+            font-size: 2.4rem;
+        }
+        .grid-selection {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+        }
+        .selection-card {
+            padding: 2rem;
+            border: 2px solid #e1e8ed;
+            border-radius: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: var(--heading-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .selection-card i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--main-color);
+        }
+        .selection-card:hover {
+            border-color: var(--main-color);
+            background-color: #f0f7ff;
+            transform: translateY(-5px);
+        }
+        .selection-card span {
+            font-weight: 600;
+            font-size: 1.6rem;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 3rem;
+            text-decoration: none;
+            color: #666;
+            font-size: 1.6rem;
+            transition: color 0.3s ease;
+        }
+        .back-link:hover {
+            color: var(--main-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="selection-container">
+        <h2>कृपया आफ्नो प्रयोगकर्ता तह छनौट गर्नुहोस्</h2>
+        <div class="grid-selection">
+            <a href="login.html?role=superadmin" class="selection-card">
+                <i class="fa-solid fa-user-shield"></i>
+                <span>सुपरएडमिन</span>
+            </a>
+            <a href="login.html?role=admin" class="selection-card">
+                <i class="fa-solid fa-user-tie"></i>
+                <span>एडमिन</span>
+            </a>
+            <a href="login.html?role=federal" class="selection-card">
+                <i class="fa-solid fa-landmark"></i>
+                <span>सङ्घीय तह</span>
+            </a>
+            <a href="login.html?role=provincial" class="selection-card">
+                <i class="fa-solid fa-map"></i>
+                <span>प्रदेश तह</span>
+            </a>
+            <a href="login.html?role=local" class="selection-card">
+                <i class="fa-solid fa-city"></i>
+                <span>स्थानीय तह</span>
+            </a>
+            <a href="login.html?role=office" class="selection-card">
+                <i class="fa-solid fa-building"></i>
+                <span>प्रयोगकर्ता कार्यालय</span>
+            </a>
+        </div>
+        <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> मुख्य पृष्ठमा फर्कनुहोस्</a>
+    </div>
+     <script src="./script.js"></script>
+</body>
+</html>

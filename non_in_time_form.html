@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ne">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>समयमा विवरण पेश नगर्नेको विवरण प्रविष्टि</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+    <link href="https://unpkg.com/nepali-date-picker@2.0.2/dist/nepaliDatePicker.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="sidebar-brand" id="sidebar-brand-text">
+                <i class="fa-solid fa-shield-halved"></i> लोड हुँदैछ...
+            </div>
+            <nav class="sidebar-menu">
+                <ul id="sidebar-nav-list"></ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <nav class="breadcrumb">
+                    <a href="javascript:history.back()" class="breadcrumb-back"><i class="fa-solid fa-arrow-left"></i> पछाडि</a>
+                    <span class="separator">|</span>
+                    <a href="index.html">गृहपृष्ठ</a>
+                    <i class="fa-solid fa-chevron-right separator"></i>
+                    <span id="breadcrumb-active-item">नयाँ प्रविष्टि</span>
+                </nav>
+            </header>
+
+            <div class="section-registration" style="display: block; background: white; padding: 2.5rem; border-radius: 1rem; box-shadow: 0 4px 15px rgba(0,0,0,0.05); max-width: 900px; margin: 2rem auto;">
+                <h3 class="section-common-heading" style="border-bottom: 2px solid var(--main-color); padding-bottom: 1rem; margin-bottom: 2rem;">
+                    समयमा विवरण पेश नगर्ने राष्ट्रसेवकको विवरण प्रविष्टि फारम
+                </h3>
+                
+                <form id="non-in-time-form">
+                    <div class="form-grid">
+                        <div class="png-filter-item" style="flex-direction: column; align-items: flex-start; border: none;">
+                            <label>नाम थर</label>
+                            <input type="text" name="full_name" placeholder=" " required style="width: 100%;">
+                        </div>
+                        <div class="png-filter-item" style="flex-direction: column; align-items: flex-start; border: none;">
+                            <label>पद</label>
+                            <input type="text" name="post" placeholder=" " required style="width: 100%;">
+                        </div>
+                        <div class="png-filter-item" style="flex-direction: column; align-items: flex-start; border: none;">
+                            <label>मन्त्रालय/निकाय</label>
+                            <select name="ministry" id="ministry-filter" style="width: 100%;"></select>
+                        </div>
+                        <div class="png-filter-item" style="flex-direction: column; align-items: flex-start; border: none;">
+                            <label>कार्यरत सार्वजनिक संस्था</label>
+                            <input type="text" name="office_name" placeholder=" " style="width: 100%;">
+                        </div>
+                        <div class="png-filter-item" style="flex-direction: column; align-items: flex-start; border: none;">
+                            <label>राष्ट्रसेवकको किसिम</label>
+                            <select name="employee_type" style="width: 100%;">
+                                <option value="स्थायी">स्थायी</option>
+                                <option value="अस्थायी">अस्थायी</option>
+                                <option value="करार">करार</option>
+                                <option value="नियुक्ति">नियुक्ति</option>
+                                <option value="मनोनयन">मनोनयन</option>
+                            </select>
+                        </div>
+                        <div class="png-filter-item" style="flex-direction: column; align-items: flex-start; border: none;">
+                            <label>सेवा/नोकरीको किसिम</label>
+                            <select name="service_type" style="width: 100%;">
+                                <option value="निजामती">निजामती</option>
+                                <option value="शिक्षक">शिक्षक</option>
+                                <option value="सेना">सेना</option>
+                                <option value="प्रहरी">प्रहरी</option>
+                                <option value="अन्य">अन्य</option>
+                            </select>
+                        </div>
+                        <div class="png-filter-item" style="flex-direction: column; align-items: flex-start; border: none;">
+                            <label>सम्बन्धित आ.व.</label>
+                            <select name="fiscal_year" style="width: 100%;">
+                                <option value="२०८०/८१" selected>२०८०/८१</option>
+                                <option value="२०८१/८२">२०८१/८२</option>
+                            </select>
+                        </div>
+                        <div class="png-filter-item" style="flex-direction: column; align-items: flex-start; border: none;">
+                            <label>मोबाइल नं.</label>
+                            <input type="text" name="mobile_no" placeholder=" " style="width: 100%;">
+                        </div>
+                        <div class="png-filter-item" style="flex-direction: column; align-items: flex-start; border: none;">
+                            <label>दर्ता नं. (यदि पेश गरेमा)</label>
+                            <input type="text" name="reg_no" style="width: 100%;">
+                        </div>
+                        <div class="png-filter-item" style="flex-direction: column; align-items: flex-start; border: none;">
+                            <label>दर्ता मिति</label>
+                            <input type="text" name="submission_date" class="nepali-datepicker" placeholder="YYYY-MM-DD" style="width: 100%;">
+                        </div>
+                        <div class="png-filter-item" style="flex-direction: column; align-items: flex-start; border: none; grid-column: span 2;">
+                            <label>कैफियत</label>
+                            <textarea name="remarks" rows="3" style="width: 100%; border: 1px solid #e1e8ed; border-radius: 0.4rem; padding: 0.8rem;"></textarea>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 2rem; display: flex; gap: 1.5rem; justify-content: flex-end;">
+                        <button type="button" class="btn-reset" onclick="history.back()">रद्द गर्नुहोस्</button>
+                        <button type="submit" class="btn-export" style="background-color: var(--main-color);">विवरण सुरक्षित गर्नुहोस्</button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://unpkg.com/nepali-date-picker@2.0.2/dist/nepaliDatePicker.min.js"></script>
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var dateInputs = document.querySelectorAll('.nepali-datepicker');
+
+            function initNepaliDatepicker(input) {
+                if (window.jQuery && typeof jQuery(input).nepaliDatePicker === 'function') {
+                    jQuery(input).nepaliDatePicker({ container: 'body' });
+                } else if (typeof input.nepaliDatePicker === 'function') {
+                    input.nepaliDatePicker({ container: 'body' });
+                } else {
+                    console.warn('Nepali datepicker is not available for element', input);
+                }
+            }
+
+            if (dateInputs.length > 0) {
+                dateInputs.forEach(function(input) {
+                    initNepaliDatepicker(input);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

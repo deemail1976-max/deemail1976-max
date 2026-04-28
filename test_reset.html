@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ne">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filter Reset Test</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div style="padding: 2rem;">
+        <h2>Filter Reset Test</h2>
+        
+        <!-- Filters -->
+        <section class="filter-section">
+            <div class="filter-grid">
+                <div>
+                    <label for="ministry-filter">मन्त्रालय/निकाय</label>
+                    <select id="ministry-filter">
+                        <option value="">सबै मन्त्रालय/निकाय</option>
+                        <option value="ministry1">मन्त्रालय १</option>
+                        <option value="ministry2">मन्त्रालय २</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="province-filter">प्रदेश</label>
+                    <select id="province-filter">
+                        <option value="">सबै प्रदेश</option>
+                        <option value="1">कोशी प्रदेश</option>
+                        <option value="2">मधेस प्रदेश</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="district-filter">जिल्ला</label>
+                    <select id="district-filter">
+                        <option value="">सबै जिल्ला</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="local-filter">स्थानीय तह</label>
+                    <select id="local-filter">
+                        <option value="">सबै स्थानीय तह</option>
+                    </select>
+                </div>
+            </div>
+            <div class="filter-actions">
+                <button type="button" id="reset-filters" class="btn-reset">
+                    <i class="fa-solid fa-rotate-left"></i> फिल्टर रिसेट
+                </button>
+            </div>
+        </section>
+
+        <div style="margin-top: 2rem;">
+            <h3>Test Instructions:</h3>
+            <ol>
+                <li>Change values in the filter dropdowns</li>
+                <li>Click the "फिल्टर रिसेट" button</li>
+                <li>All filters should reset to their default empty state</li>
+            </ol>
+            <button onclick="testFunction()" style="padding: 1rem; background: #007bff; color: white; border: none; border-radius: 0.5rem; cursor: pointer;">
+                Test Reset Function
+            </button>
+            <div id="test-result" style="margin-top: 1rem; padding: 1rem; border-radius: 0.5rem;"></div>
+        </div>
+    </div>
+
+    <script>
+        // Test function to verify reset functionality
+        function testFunction() {
+            const ministrySelect = document.getElementById('ministry-filter');
+            const provinceSelect = document.getElementById('province-filter');
+            const districtSelect = document.getElementById('district-filter');
+            const localLevelSelect = document.getElementById('local-filter');
+            const resetBtn = document.getElementById('reset-filters');
+            const resultDiv = document.getElementById('test-result');
+            
+            // Set some test values
+            ministrySelect.value = 'ministry1';
+            provinceSelect.value = '1';
+            
+            resultDiv.innerHTML = '<strong>Before Reset:</strong><br>';
+            resultDiv.innerHTML += `Ministry: ${ministrySelect.value}<br>`;
+            resultDiv.innerHTML += `Province: ${provinceSelect.value}<br>`;
+            
+            // Trigger reset
+            resetBtn.click();
+            
+            setTimeout(() => {
+                resultDiv.innerHTML += '<br><strong>After Reset:</strong><br>';
+                resultDiv.innerHTML += `Ministry: ${ministrySelect.value}<br>`;
+                resultDiv.innerHTML += `Province: ${provinceSelect.value}<br>`;
+                resultDiv.innerHTML += `District: ${districtSelect.value}<br>`;
+                resultDiv.innerHTML += `Local: ${localLevelSelect.value}<br>`;
+                
+                if (ministrySelect.value === '' && provinceSelect.value === '') {
+                    resultDiv.innerHTML += '<br><span style="color: green;">✅ Reset functionality working correctly!</span>';
+                } else {
+                    resultDiv.innerHTML += '<br><span style="color: red;">❌ Reset functionality not working!</span>';
+                }
+            }, 100);
+        }
+        
+        // Reset functionality (copied from script.js)
+        const resetBtn = document.getElementById('reset-filters');
+        if (resetBtn) {
+            resetBtn.addEventListener('click', () => {
+                const ministrySelect = document.getElementById('ministry-filter');
+                const provinceSelect = document.getElementById('province-filter');
+                const districtSelect = document.getElementById('district-filter');
+                const localLevelSelect = document.getElementById('local-filter');
+                
+                // Reset all select values
+                if (ministrySelect) ministrySelect.value = "";
+                if (provinceSelect) provinceSelect.value = "";
+                
+                // Clear dependent dropdowns
+                if (districtSelect) {
+                    districtSelect.innerHTML = '<option value="">सबै जिल्ला</option>';
+                    districtSelect.value = "";
+                }
+                if (localLevelSelect) {
+                    localLevelSelect.innerHTML = '<option value="">सबै स्थानीय तह</option>';
+                    localLevelSelect.value = "";
+                }
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ne">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>प्रदेशगत रिपोर्ट - सुपर एडमिन ड्यासबोर्ड</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Specific styles for the report table */
+        .report-table-container {
+            background: var(--white-color);
+            padding: 2.5rem;
+            border-radius: 1.2rem;
+            margin-top: 3rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1.4rem;
+        }
+        th, td {
+            padding: 1.2rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        th {
+            background-color: var(--supporting-color);
+            color: var(--main-color);
+            font-weight: 700;
+        }
+        tr:hover {
+            background-color: #f9fbff;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <div class="brand-logo" style="display: flex; align-items: center; gap: 0.8rem;">
+                    <i class="fa-solid fa-shield-halved"></i> 
+                    <span id="sidebar-brand-text">सुपर एडमिन</span>
+                </div>
+            </div>
+            <nav class="sidebar-menu">
+                <ul id="sidebar-nav-list">
+                    <!-- Dynamic Menu will be injected by script.js -->
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="index.html" class="logout-link">
+                    <i class="fa-solid fa-right-from-bracket"></i> लगआउट
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <nav class="breadcrumb">
+                <a href="javascript:history.back()" class="breadcrumb-back"><i class="fa-solid fa-arrow-left"></i> पछाडि</a>
+                <span class="separator">|</span>
+                <a href="index.html">गृहपृष्ठ</a>
+                <i class="fa-solid fa-chevron-right separator"></i>
+                <span id="breadcrumb-active-item"></span>
+            </nav>
+
+            <h2 class="section-common-heading">प्रदेशगत रिपोर्ट सारांश</h2>
+            <button class="btn-export" id="export-excel"><i class="fa-solid fa-file-excel"></i> Excel मा निर्यात गर्नुहोस्</button>
+
+            <!-- Filters -->
+            <section class="filter-section">
+                <div class="filter-grid">
+                    <div>
+                        <label for="province-filter">प्रदेश छनौट गर्नुहोस्</label>
+                        <select id="province-filter" data-col="0">
+                            <option value="">सबै प्रदेश</option>
+                            <option value="कोशी प्रदेश">कोशी प्रदेश</option>
+                            <option value="मधेस प्रदेश">मधेस प्रदेश</option>
+                            <option value="बागमती प्रदेश">बागमती प्रदेश</option>
+                            <option value="गण्डकी प्रदेश">गण्डकी प्रदेश</option>
+                            <option value="लुम्बिनी प्रदेश">लुम्बिनी प्रदेश</option>
+                            <option value="कर्णाली प्रदेश">कर्णाली प्रदेश</option>
+                            <option value="सुदूर पश्चिम प्रदेश">सुदूर पश्चिम प्रदेश</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="filter-actions">
+                    <button type="button" id="search-filters" class="btn-search">
+                        <i class="fa-solid fa-magnifying-glass"></i> खोज्नुहोस्
+                    </button>
+                    <button type="button" id="search-filters" class="btn-search">
+                    <i class="fa-solid fa-magnifying-glass"></i> खोज्नुहोस्
+                </button>
+                    <button type="button" id="reset-filters" class="btn-reset">
+                        <i class="fa-solid fa-rotate-left"></i> फिल्टर रिसेट
+                    </button>
+                </div>
+            </section>
+
+            <!-- Stats Widgets -->
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <i class="fa-solid fa-map"></i>
+                    <div class="stat-info"><h3>जम्मा प्रदेश</h3><p>७</p></div>
+                </div>
+                <div class="stat-card">
+                    <i class="fa-solid fa-sitemap"></i>
+                    <div class="stat-info"><h3>कुल निकाय</h3><p>१२५</p></div>
+                </div>
+                <div class="stat-card">
+                    <i class="fa-solid fa-user-tie"></i>
+                    <div class="stat-info"><h3>कुल राष्ट्रसेवक</h3><p>४५६०</p></div>
+                </div>
+            </div>
+
+            <!-- Report Table -->
+            <div class="report-table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>प्रदेशको नाम</th>
+                            <th>जम्मा निकाय</th>
+                            <th>जम्मा राष्ट्रसेवक</th>
+                            <th>समयमा बुझाउने</th>
+                            <th>बुझाउन बाँकी</th>
+                        </tr>
+                    </thead>
+                    <tbody id="province-report-body">
+                        <tr>
+                            <td>कोशी प्रदेश</td>
+                            <td>१८</td>
+                            <td>५४०</td>
+                            <td>५००</td>
+                            <td>४०</td>
+                        </tr>
+                        <tr>
+                            <td>मधेस प्रदेश</td>
+                            <td>१५</td>
+                            <td>४५०</td>
+                            <td>४००</td>
+                            <td>५०</td>
+                        </tr>
+                        <tr>
+                            <td>बागमती प्रदेश</td>
+                            <td>२५</td>
+                            <td>८५०</td>
+                            <td>८००</td>
+                            <td>५०</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

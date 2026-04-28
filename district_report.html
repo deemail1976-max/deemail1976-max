@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ne">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>जिल्लागत रिपोर्ट - सुपर एडमिन ड्यासबोर्ड</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .report-table-container {
+            background: var(--white-color);
+            padding: 2.5rem;
+            border-radius: 1.2rem;
+            margin-top: 3rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1.5rem;
+            font-size: 1.4rem;
+        }
+        th, td {
+            padding: 1.2rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        th {
+            background-color: var(--supporting-color);
+            color: var(--main-color);
+            font-weight: 700;
+        }
+        tr:hover {
+            background-color: #f9fbff;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-brand" id="sidebar-brand-text">
+                <i class="fa-solid fa-shield-halved"></i> सुपर एडमिन
+            </div>
+            <nav class="sidebar-menu">
+                <ul id="sidebar-nav-list">
+                    <!-- Dynamic Menu will be injected by script.js -->
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="index.html" class="logout-link">
+                    <i class="fa-solid fa-right-from-bracket"></i> लगआउट
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <nav class="breadcrumb">
+                <a href="javascript:history.back()" class="breadcrumb-back"><i class="fa-solid fa-arrow-left"></i> पछाडि</a>
+                <span class="separator">|</span>
+                <a href="index.html">गृहपृष्ठ</a>
+                <i class="fa-solid fa-chevron-right separator"></i>
+                <span id="breadcrumb-active-item"></span>
+            </nav>
+
+            <h2 class="section-common-heading">जिल्लागत रिपोर्ट सारांश</h2>
+            <button class="btn-export" id="export-excel"><i class="fa-solid fa-file-excel"></i> Excel मा निर्यात गर्नुहोस्</button>
+
+            <!-- Filters -->
+            <section class="filter-section">
+                <div class="filter-grid">
+                    <div>
+                        <label for="province-filter">प्रदेश छनौट गर्नुहोस्</label>
+                        <select id="province-filter">
+                            <option value="">सबै प्रदेश</option>
+                            <option value="1">कोशी प्रदेश</option>
+                            <option value="2">मधेस प्रदेश</option>
+                            <option value="3">बागमती प्रदेश</option>
+                            <option value="4">गण्डकी प्रदेश</option>
+                            <option value="5">लुम्बिनी प्रदेश</option>
+                            <option value="6">कर्णाली प्रदेश</option>
+                            <option value="7">सुदूर पश्चिम प्रदेश</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="district-filter">जिल्ला छनौट गर्नुहोस्</label>
+                        <select id="district-filter" data-col="0">
+                            <option value="">सबै जिल्ला</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="filter-actions">
+                    <button type="button" id="search-filters" class="btn-search">
+                        <i class="fa-solid fa-magnifying-glass"></i> खोज्नुहोस्
+                    </button>
+                    <button type="button" id="reset-filters" class="btn-reset">
+                        <i class="fa-solid fa-rotate-left"></i> फिल्टर रिसेट
+                    </button>
+                </div>
+            </section>
+
+            <!-- Stats Widgets -->
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <div class="stat-info"><h3>जम्मा जिल्ला</h3><p>७७</p></div>
+                </div>
+                <div class="stat-card">
+                    <i class="fa-solid fa-sitemap"></i>
+                    <div class="stat-info"><h3>कुल निकाय</h3><p>१२५</p></div>
+                </div>
+                <div class="stat-card">
+                    <i class="fa-solid fa-user-tie"></i>
+                    <div class="stat-info"><h3>कुल राष्ट्रसेवक</h3><p>४५६०</p></div>
+                </div>
+            </div>
+
+            <!-- Report Table -->
+            <div class="report-table-container">
+                <table id="district-report-table" class="report-table">
+                    <thead>
+                        <tr>
+                            <th>जिल्लाको नाम</th>
+                            <th>जम्मा निकाय</th>
+                            <th>जम्मा राष्ट्रसेवक</th>
+                            <th>समयमा बुझाउने</th>
+                            <th>बुझाउन बाँकी</th>
+                        </tr>
+                    </thead>
+                    <tbody id="district-report-body">
+                        <!-- Data will be populated here -->
+                        <tr>
+                            <td data-label="जिल्लाको नाम">काठमाडौं</td>
+                            <td data-label="जम्मा निकाय">४५</td>
+                            <td data-label="जम्मा राष्ट्रसेवक">१२००</td>
+                            <td data-label="समयमा बुझाउने">११५०</td>
+                            <td data-label="बुझाउन बाँकी">५०</td>
+                        </tr>
+                        <tr>
+                            <td data-label="जिल्लाको नाम">भोजपुर</td>
+                            <td data-label="जम्मा निकाय">१२</td>
+                            <td data-label="जम्मा राष्ट्रसेवक">३२०</td>
+                            <td data-label="समयमा बुझाउने">३००</td>
+                            <td data-label="बुझाउन बाँकी">२०</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
